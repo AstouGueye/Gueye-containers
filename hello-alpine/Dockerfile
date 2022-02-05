@@ -2,17 +2,8 @@ FROM alpine:latest
 
 LABEL version="1.0.0" maintainer="alpine" os="ubuntu"
 
-# once the dockerfile is build, you can inspect its labels
-$ docker image inspect --format='' my-nice-image
-{
-	"version": "1.0.0",
-	"maintainer": "alpine",
-  "os": "ubuntu"
-}
+ENV CONTAINER_USER="astou"
+RUN adduser $CONTAINER_USER --disabled-password 
 
-ENV MYSQL_HOME_DIR="/home/mysql"
-RUN mkdir $MYSQL_HOME_DIR
-WORKDIR $MYSQL_HOME_DIR
+CMD echo "hello-alpine, I’m $CONTAINER_USER and this is a container from my first image" 
 
-RUN apt-get install mysql
-RUN useradd jaguirre
